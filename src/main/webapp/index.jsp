@@ -11,6 +11,7 @@
     <h1>Welcome to Product Portal</h1>
     <h2>What would you like to do?</h2>
     <a href="addProduct.jsp"><button>Add Product</button></a>
+    <a href="listProducts"><button>List Products</button></a>
 </body>
 
 </html>

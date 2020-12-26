@@ -13,7 +13,7 @@ import com.hcl.productEntry.entity.ProductEntity;
 
 @WebServlet(name = "ProductServlet",
         description = "Servlet for handling product entry into database",
-        urlPatterns = {"/productEntry"})
+        urlPatterns = {"/productEntry", "/listProducts"})
 public class ProductServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private ProductDao productDao;
@@ -24,22 +24,38 @@ public class ProductServlet extends HttpServlet {
     }
 
     @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        doPost(request, response);
+    }
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        String name = null;
-        double price = 0;
-        int quantity = 0;
-        try {
-            name = request.getParameter("name");
-            price = Double.parseDouble(request.getParameter("price"));
-            quantity = Integer.parseInt(request.getParameter("quantity"));
+        if (request.getRequestURI().equals("/listProducts")) {
+            listAll(request, response);
+        } else {
 
-        } catch (NumberFormatException e) {
+            String name = null;
+            double price = 0;
+            int quantity = 0;
+            try {
+                name = request.getParameter("name");
+                price = Double.parseDouble(request.getParameter("price"));
+                quantity = Integer.parseInt(request.getParameter("quantity"));
 
+            } catch (NumberFormatException e) {
+
+            }
+
+            ProductEntity product = new ProductEntity(name, price, quantity);
+            productDao.saveProduct(product);
+            listAll(request, response);
         }
+    }
 
-        ProductEntity product = new ProductEntity(name, price, quantity);
-        productDao.saveProduct(product);
+    private void listAll(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         List<?> products = productDao.getAllProducts();
         request.setAttribute("products", products);
         RequestDispatcher dispatcher = request.getRequestDispatcher("success.jsp");
