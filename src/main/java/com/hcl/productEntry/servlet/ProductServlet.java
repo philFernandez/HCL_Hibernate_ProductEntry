@@ -35,7 +35,6 @@ public class ProductServlet extends HttpServlet {
         if (request.getRequestURI().equals("/listProducts")) {
             listAll(request, response);
         } else {
-
             try {
                 String name = request.getParameter("name");
                 double price = Double.parseDouble(request.getParameter("price"));
@@ -43,13 +42,11 @@ public class ProductServlet extends HttpServlet {
                 ProductEntity product = new ProductEntity(name, price, quantity);
                 productDao.saveProduct(product);
                 listAll(request, response);
-
             } catch (NumberFormatException | NullPointerException e) {
-                // System.out.print("\n\n\n Caught Exception : ");
-                // System.out.print(e.getMessage() + "\n\n\n");
+                // Throwing ServletException will trigger Error.jsp
+                // This will validate that the input is of the correct type
                 throw new ServletException(e);
             }
-
         }
     }
 
