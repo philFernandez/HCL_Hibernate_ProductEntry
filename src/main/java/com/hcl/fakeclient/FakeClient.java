@@ -7,7 +7,7 @@ import org.hibernate.Transaction;
 
 public class FakeClient {
     public static void main(String[] args) {
-        Session hibernateSesssion = HibernateUtility.getSession();
+        Session hibernateSesssion = HibernateUtility.getSessionFactory().openSession();
         Transaction transaction = hibernateSesssion.beginTransaction();
 
         ProductEntity carStereo = new ProductEntity("Alpine Car Stereo", 599.99, 2300);

@@ -4,14 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Welcome</title>
 </head>
 
 <body>
-    <form action="productEntry" method="get">
-        <input type="text">
-        <button type="submit">Sub</button>
-    </form>
+    <h1>Welcome to Product Portal</h1>
+    <h2>What would you like to do?</h2>
+    <a href="addProduct.jsp"><button>Add Product</button></a>
 </body>
 
 </html>

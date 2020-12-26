@@ -17,8 +17,9 @@
 		</property>
         <property name="hibernate.connection.password"></property>
         <property name="hibernate.hbm2ddl.auto">
-		create-drop
-		</property>
+            update
+            <!-- create-drop -->
+        </property>
         <!-- List of XML mapping files -->
         <mapping class="com.hcl.productEntry.entity.ProductEntity" />
     </session-factory>
