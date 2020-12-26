@@ -36,21 +36,20 @@ public class ProductServlet extends HttpServlet {
             listAll(request, response);
         } else {
 
-            String name = null;
-            double price = 0;
-            int quantity = 0;
             try {
-                name = request.getParameter("name");
-                price = Double.parseDouble(request.getParameter("price"));
-                quantity = Integer.parseInt(request.getParameter("quantity"));
+                String name = request.getParameter("name");
+                double price = Double.parseDouble(request.getParameter("price"));
+                int quantity = Integer.parseInt(request.getParameter("quantity"));
+                ProductEntity product = new ProductEntity(name, price, quantity);
+                productDao.saveProduct(product);
+                listAll(request, response);
 
-            } catch (NumberFormatException e) {
-
+            } catch (NumberFormatException | NullPointerException e) {
+                // System.out.print("\n\n\n Caught Exception : ");
+                // System.out.print(e.getMessage() + "\n\n\n");
+                throw new ServletException(e);
             }
 
-            ProductEntity product = new ProductEntity(name, price, quantity);
-            productDao.saveProduct(product);
-            listAll(request, response);
         }
     }
 
